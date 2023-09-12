@@ -1,0 +1,203 @@
+basePath: /api
+definitions:
+  controllers.PersonDto:
+    properties:
+      created_at:
+        example: "2023-09-11T16:23:57.832758+01:00"
+        type: string
+      deleted_at:
+        example: "2023-09-11T16:23:57.832758+01:00"
+        type: string
+      id:
+        example: "1"
+        type: string
+      name:
+        example: Mark Essien
+        type: string
+      updated_at:
+        example: "2023-09-11T16:23:57.832758+01:00"
+        type: string
+    type: object
+  controllers.StorePersonBody:
+    properties:
+      name:
+        example: Mark Essien
+        type: string
+    required:
+    - name
+    type: object
+  controllers.UpdatePersonBody:
+    properties:
+      name:
+        example: Mark Essien
+        type: string
+    type: object
+  utils.JSONErrorResult:
+    properties:
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  utils.JSONSuccessResult:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  utils.ValidationError:
+    properties:
+      condition:
+        example: required
+        type: string
+      error:
+        example: Name field is required
+        type: string
+      key:
+        example: name
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: realolamilekan@gmail.io
+    name: API Support
+  description: '"This is a crud server for creating resource."'
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Swagger Person Crud API
+  version: "1.0"
+paths:
+  /person:
+    get:
+      description: get list of all person resource
+      operationId: index-person
+      parameters:
+      - description: Name to filter users by
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.JSONSuccessResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/controllers.PersonDto'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.JSONErrorResult'
+      summary: List Person
+      tags:
+      - Person CRUD
+    post:
+      consumes:
+      - application/json
+      description: store a new person
+      operationId: store-person
+      parameters:
+      - description: Person object to create
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.StorePersonBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.JSONSuccessResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/controllers.PersonDto'
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            items:
+              $ref: '#/definitions/utils.ValidationError'
+            type: array
+      summary: Store User
+      tags:
+      - Person CRUD
+  /person/{id}:
+    delete:
+      description: Delete Person resource by id
+      operationId: delete-person
+      parameters:
+      - description: person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.JSONSuccessResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.JSONErrorResult'
+      summary: Delete Person
+      tags:
+      - Person CRUD
+    get:
+      consumes:
+      - application/json
+      description: Update person resource by id
+      operationId: show-person
+      parameters:
+      - description: person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Person object to update
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UpdatePersonBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.JSONSuccessResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/controllers.PersonDto'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.JSONErrorResult'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            items:
+              $ref: '#/definitions/utils.ValidationError'
+            type: array
+      summary: Update Person
+      tags:
+      - Person CRUD
+swagger: "2.0"
