@@ -32,7 +32,7 @@ func init() {
 // @query.collection.format multi
 func main() {
 	appUrl := os.Getenv("APP_URL")
-	appPort := os.Getenv("PORT")
+	appPort := os.Getenv("APP_PORT")
 	appEnv := os.Getenv("APP_ENV")
 
 	router := gin.Default()
