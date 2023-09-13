@@ -380,10 +380,10 @@ Delete a single person by passing either the person id or person name.
   ```
 ----
 ### UML Diagram
-![](../person-crud/uml_crud.png)
+![](/uml_crud.png)
 
 ### ER Diagram
-![](../person-crud/er_crud.png)
+![](/er_crud.png)
 
 
 ### Run Test
