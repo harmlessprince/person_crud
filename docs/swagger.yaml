@@ -73,7 +73,7 @@ definitions:
         example: name
         type: string
     type: object
-host: https://taofeeq-hng-stage-two.onrender.com/
+host: https://taofeeq-hng-stage-two.onrender.com
 info:
   contact:
     email: realolamilekan@gmail.io

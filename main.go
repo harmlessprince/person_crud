@@ -40,7 +40,7 @@ func main() {
 	docs.SwaggerInfo.Title = "HNGx Stage 2 Person Crud API"
 	docs.SwaggerInfo.Description = "This is a crud server for modifying person resource."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = appUrl
+	docs.SwaggerInfo.Host = "https://taofeeq-hng-stage-two.onrender.com"
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 

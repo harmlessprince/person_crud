@@ -13,7 +13,7 @@
         },
         "version": "1.0"
     },
-    "host": "https://taofeeq-hng-stage-two.onrender.com/",
+    "host": "https://taofeeq-hng-stage-two.onrender.com",
     "basePath": "/api",
     "paths": {
         "/": {
