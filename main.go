@@ -27,7 +27,7 @@ func init() {
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
-// @host localhost:3000
+// @host https://taofeeq-hng-stage-two.onrender.com
 // @BasePath /api
 // @query.collection.format multi
 func main() {

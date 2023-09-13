@@ -63,8 +63,8 @@ const docTemplate = `{
                             ]
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/utils.JSONErrorResult"
                         }
@@ -413,7 +413,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:3000",
+	Host:             "https://taofeeq-hng-stage-two.onrender.com/",
 	BasePath:         "/api",
 	Schemes:          []string{},
 	Title:            "Swagger Person Crud API",

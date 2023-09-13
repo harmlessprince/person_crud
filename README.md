@@ -14,6 +14,7 @@ This is a mini rest api that provides  endpoint to perform crud on person resour
 7. [View UML Diagram](#uml-diagram)
 8. [View ER Diagram](#er-diagram)
 9. [Run Test](#run-test)
+10. [Swagger Documentation Link](#swagger-documentation-link)
 6. [Author](#author)
 7. [License](#license)
 
@@ -396,6 +397,11 @@ OR
 
 ```
 gotest ./tests/... -v
+```
+### Swagger Documentation Link
+
+```
+https://taofeeq-hng-stage-two.onrender.com/docs/index.html
 ```
 
 ### Author

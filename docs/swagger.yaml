@@ -73,7 +73,7 @@ definitions:
         example: name
         type: string
     type: object
-host: localhost:3000
+host: https://taofeeq-hng-stage-two.onrender.com/
 info:
   contact:
     email: realolamilekan@gmail.io
@@ -108,8 +108,8 @@ paths:
                     $ref: '#/definitions/controllers.PersonDto'
                   type: array
               type: object
-        "500":
-          description: Internal Server Error
+        "400":
+          description: Bad Request
           schema:
             $ref: '#/definitions/utils.JSONErrorResult'
       summary: List Person
