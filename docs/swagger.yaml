@@ -6,7 +6,7 @@ definitions:
         example: "2023-09-11T16:23:57.832758+01:00"
         type: string
       deleted_at:
-        example: "2023-09-11T16:23:57.832758+01:00"
+        example: "2023-11-11T16:23:57.832758+01:00"
         type: string
       id:
         example: "1"
@@ -15,7 +15,7 @@ definitions:
         example: Mark Essien
         type: string
       updated_at:
-        example: "2023-09-11T16:23:57.832758+01:00"
+        example: "2023-10-11T16:23:57.832758+01:00"
         type: string
     type: object
   controllers.StorePersonBody:
@@ -37,6 +37,19 @@ definitions:
       message:
         type: string
       success:
+        example: false
+        type: boolean
+    type: object
+  utils.JSONFailedValidationResult:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/utils.ValidationError'
+        type: array
+      message:
+        type: string
+      success:
+        example: false
         type: boolean
     type: object
   utils.JSONSuccessResult:
@@ -45,6 +58,7 @@ definitions:
       message:
         type: string
       success:
+        example: true
         type: boolean
     type: object
   utils.ValidationError:
@@ -128,9 +142,14 @@ paths:
         "422":
           description: Unprocessable Entity
           schema:
-            items:
-              $ref: '#/definitions/utils.ValidationError'
-            type: array
+            allOf:
+            - $ref: '#/definitions/utils.JSONFailedValidationResult'
+            - properties:
+                errors:
+                  items:
+                    $ref: '#/definitions/utils.ValidationError'
+                  type: array
+              type: object
       summary: Store User
       tags:
       - Person CRUD
@@ -159,6 +178,34 @@ paths:
       tags:
       - Person CRUD
     get:
+      description: Find person resource by id
+      operationId: show-person
+      parameters:
+      - description: person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/utils.JSONSuccessResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/controllers.PersonDto'
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.JSONErrorResult'
+      summary: Show Person
+      tags:
+      - Person CRUD
+    patch:
       consumes:
       - application/json
       description: Update person resource by id
@@ -194,9 +241,14 @@ paths:
         "422":
           description: Unprocessable Entity
           schema:
-            items:
-              $ref: '#/definitions/utils.ValidationError'
-            type: array
+            allOf:
+            - $ref: '#/definitions/utils.JSONFailedValidationResult'
+            - properties:
+                errors:
+                  items:
+                    $ref: '#/definitions/utils.ValidationError'
+                  type: array
+              type: object
       summary: Update Person
       tags:
       - Person CRUD

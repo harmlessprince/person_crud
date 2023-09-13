@@ -25,8 +25,8 @@ type PersonDto struct {
 	ID        string    `json:"id" example:"1"`
 	Name      string    `json:"name" example:"Mark Essien"`
 	CreatedAt time.Time `json:"created_at" example:"2023-09-11T16:23:57.832758+01:00"`
-	UpdatedAt time.Time `json:"updated_at" example:"2023-09-11T16:23:57.832758+01:00"`
-	DeletedAt time.Time `json:"deleted_at" example:"2023-09-11T16:23:57.832758+01:00"`
+	UpdatedAt time.Time `json:"updated_at" example:"2023-10-11T16:23:57.832758+01:00"`
+	DeletedAt time.Time `json:"deleted_at" example:"2023-11-11T16:23:57.832758+01:00"`
 }
 
 type FilterPersonQueryParams struct {
@@ -42,7 +42,7 @@ type FilterPersonQueryParams struct {
 // @Produce json
 // @Param data body StorePersonBody true "Person object to create"
 // @Success 200 {object} utils.JSONSuccessResult{data=PersonDto,message}
-// @Failure 422 {array} utils.ValidationError
+// @Failure 422 {object} utils.JSONFailedValidationResult{errors=[]utils.ValidationError}
 // @Router / [post]
 func StorePerson(context *gin.Context) {
 	// Get data of request body
@@ -146,8 +146,8 @@ func getPersonByIdOrName(idOrName string) (models.Person, bool) {
 // @Param data body UpdatePersonBody true "Person object to update"
 // @Success 200 {object} utils.JSONSuccessResult{data=PersonDto,message}
 // @Failure 404 {object} utils.JSONErrorResult{message}
-// @Failure 422 {array} utils.ValidationError
-// @Router /{user_id} [get]
+// @Failure 422 {object} utils.JSONFailedValidationResult{errors=[]utils.ValidationError}
+// @Router /{user_id} [patch]
 func UpdatePerson(context *gin.Context) {
 	var body UpdatePersonBody
 	//get ID from url
@@ -176,7 +176,7 @@ func UpdatePerson(context *gin.Context) {
 		Name: body.Name,
 	})
 
-	utils.SendSuccessResponse(context, "Person retrieved", person)
+	utils.SendSuccessResponse(context, "Person updated successfully", person)
 }
 
 // DeletePerson

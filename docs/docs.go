@@ -117,10 +117,22 @@ const docTemplate = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/utils.ValidationError"
-                            }
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.JSONFailedValidationResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/utils.ValidationError"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -128,6 +140,86 @@ const docTemplate = `{
         },
         "/{user_id}": {
             "get": {
+                "description": "Find person resource by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Person CRUD"
+                ],
+                "summary": "Show Person",
+                "operationId": "show-person",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.JSONSuccessResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/controllers.PersonDto"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.JSONErrorResult"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Person resource by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Person CRUD"
+                ],
+                "summary": "Delete Person",
+                "operationId": "delete-person",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "person ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.JSONSuccessResult"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.JSONErrorResult"
+                        }
+                    }
+                }
+            },
+            "patch": {
                 "description": "Update person resource by id",
                 "consumes": [
                     "application/json"
@@ -186,44 +278,22 @@ const docTemplate = `{
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/utils.ValidationError"
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete Person resource by id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Person CRUD"
-                ],
-                "summary": "Delete Person",
-                "operationId": "delete-person",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "person ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/utils.JSONSuccessResult"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/utils.JSONErrorResult"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/utils.JSONFailedValidationResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/utils.ValidationError"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -240,7 +310,7 @@ const docTemplate = `{
                 },
                 "deleted_at": {
                     "type": "string",
-                    "example": "2023-09-11T16:23:57.832758+01:00"
+                    "example": "2023-11-11T16:23:57.832758+01:00"
                 },
                 "id": {
                     "type": "string",
@@ -252,7 +322,7 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string",
-                    "example": "2023-09-11T16:23:57.832758+01:00"
+                    "example": "2023-10-11T16:23:57.832758+01:00"
                 }
             }
         },
@@ -284,7 +354,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "success": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "utils.JSONFailedValidationResult": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/utils.ValidationError"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean",
+                    "example": false
                 }
             }
         },
@@ -296,7 +385,8 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "success": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": true
                 }
             }
         },

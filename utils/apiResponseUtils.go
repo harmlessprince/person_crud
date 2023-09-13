@@ -1,18 +1,23 @@
 package utils
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type JSONSuccessResult struct {
-	Success bool        `json:"success" `
+	Success bool        `json:"success" example:"true"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data"`
 }
+
+type JSONFailedValidationResult struct {
+	Success bool              `json:"success" example:"false"`
+	Message string            `json:"message"`
+	Errors  []ValidationError `json:"errors"`
+}
 type JSONErrorResult struct {
-	Success bool   `json:"success" `
+	Success bool   `json:"success" example:"false"`
 	Message string `json:"message"`
 }
 
@@ -48,18 +53,4 @@ func SendValidationErrors(c *gin.Context, errors []*ValidationError) {
 		"success": false,
 		"errors":  errors,
 	})
-}
-
-func (r *JSONErrorResult) ParseErrorResponseBody(body []byte) error {
-	if err := json.Unmarshal(body, r); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *JSONSuccessResult) ParseSuccessResponseBody(body []byte) error {
-	if err := json.Unmarshal(body, r); err != nil {
-		return err
-	}
-	return nil
 }

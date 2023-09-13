@@ -2,6 +2,7 @@ package initializers
 
 import (
 	"fmt"
+	"github.com/TwiN/go-color"
 	"github.com/projects/person-crud/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -43,7 +44,8 @@ func InitializeDatabaseConnection() {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
-	log.Println("Database connection successful")
+
+	log.Println(color.Ize(color.Green, "Database connection successful"))
 
 }
 
@@ -53,7 +55,7 @@ func MigrateUp() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("Migration run complete")
+	log.Println(color.Ize(color.Green, "Migration up complete"))
 }
 
 func MigrateFresh() {
@@ -63,5 +65,5 @@ func MigrateFresh() {
 		return
 	}
 	MigrateUp()
-	log.Println("Migration run complete")
+	log.Println(color.Ize(color.Green, "Fresh Migration run complete"))
 }

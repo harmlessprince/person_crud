@@ -12,5 +12,4 @@ migrate_down:
 	go run ./migrations/drop_migrations.go
 
 test:
-	make migrate
-	go test ./tests -cover
+	 gotest ./tests/... -v
