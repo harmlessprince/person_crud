@@ -74,7 +74,7 @@ func StorePerson(context *gin.Context) {
 // @Produce json
 // @Param name query string false "Name to filter person by"
 // @Success 200 {object} utils.JSONSuccessResult{data=[]PersonDto,message}
-// @Failure 500 {object} utils.JSONErrorResult{message}
+// @Failure 400 {object} utils.JSONErrorResult{message}
 // @Router / [get]
 func IndexPerson(context *gin.Context) {
 
