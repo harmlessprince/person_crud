@@ -1,4 +1,93 @@
+# HNGx Stage 2 Person Crud API
 
+## Introduction
+
+This is a mini rest api that provides  endpoint to perform crud
+
+## Table of Contents
+1. [Technology stack](#technology-stack)
+2. [Application features](#application-features)
+4. [Application Setup](#application-setup)
+5. [Setup Enviroment Variable](#setup-enviroment-variable)
+5. [Start Application](#start-application)
+6. [Api Enpoints](#api-endpoints)
+7. [View UML Diagram](#uml-diagram)
+8. [View ER Diagram](er-diagram)
+9. [Run Test](run-test)
+6. [Author](#author)
+7. [License](#license)
+
+### Technology Stack
+- [GO lang](https://www.php.net)
+- [GO ORM](https://gorm.io/)
+- [GIN Framework](https://gin-gonic.com/docs/)
+- [Postgres Database](https://www.mysql.com)
+  ##### Testing tools
+    - [Testify](https://github.com/stretchr/testify)
+    - [SQLite](https://www.sqlite.org/index.html)
+
+### Application Features
+* Ability to view list of person
+* Ability to get single person using person id or name in path param
+* Ability to create new person
+* Ability to delete single person using person id or name in path param
+
+### Application Setup
+This instruction will get the project working on your local machine for DEVELOPMENT and TESTING purposes.
+Make sure you have go install in your machine.
+You can confirm go is availabe by running  `go version`
+If that is sucessfull, then you have go installed, otherwise go to official documentation [Install Go](https://go.dev/doc/install)
+
+One you are sure you have install Go
+You need to be sure you have GOPATH setup by running `ech $GOPATH`
+If you have that, you are good otherwise visit
+For [MAC Users](https://sourabhbajaj.com/mac-setup/Go/)
+For [Windows Users](https://www.freecodecamp.org/news/setting-up-go-programming-language-on-windows-f02c8c14e2f/)
+For [Linux Users](https://itslinuxfoss.com/set-gopath-environment-variable-ubuntu/)
+
+Once the GOPATH is setup for your device
+
+```
+    //Make Application Directory
+     mkdir -p $GOPATH/src/github.com/projects/person-crud
+    //cd into created directory
+    cd $GOPATH/src/github.com/projects/person-crud
+    //clone repository
+    git clone https://github.com/harmlessprince/person_crud.git .
+    // Install Go Packages
+    go mod download
+```
+
+#### Setup Enviroment Variable
+Default database is sqlite, you can use postgres, mysql.
+You can modify the database connectionn to your choice
+```env
+APP_NAME=Laravel
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=localhost:3000
+
+APP_PORT=3000
+
+DB_CONNECTION=sqlite
+DB_HOST=127.0.0.1
+DB_PORT=3307
+DB_DATABASE=crud_person
+DB_USERNAME=root
+DB_PASSWORD=password
+```
+
+#### Start Application
+  ```
+  make run-dev
+  ```
+or
+  ```
+    CompileDaemon -command="./person-crud"
+  ```
+
+----
+#### API Endpoints
 
 **List Person**
 ----
@@ -280,3 +369,29 @@ Delete a single person by passing either the person id or person name.
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   ```
+----
+### UML Diagram
+![](../person-crud/uml_crud.png)
+
+### ER Diagram
+![](../person-crud/er_crud.png)
+
+### Run Test
+
+```
+make test
+```
+
+OR
+
+```
+gotest ./tests/... -v
+```
+
+### Author
+Name: Adewuyi Taofeeq <br>
+Email: realolamilekan@gmail.com <br>
+LinkenIn:  <a href="#license">Adewuyi Taofeeq Olamikean</a> <br>
+
+### License
+ISC

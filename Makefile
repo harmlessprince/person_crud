@@ -1,5 +1,11 @@
-hello:
-	echo "Hello World"
+# application repository and binary file name
+NAME=person_crud
+
+# application repository path
+REPOSITORY=github.com/projects/${NAME}
+
+install:
+	go mod download
 
 run-dev:
 	echo "Starting Application In Development Mode"
