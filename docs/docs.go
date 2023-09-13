@@ -22,7 +22,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/person": {
+        "/": {
             "get": {
                 "description": "get list of all person resource",
                 "produces": [
@@ -36,7 +36,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Name to filter users by",
+                        "description": "Name to filter person by",
                         "name": "name",
                         "in": "query"
                     }
@@ -126,7 +126,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/person/{id}": {
+        "/{user_id}": {
             "get": {
                 "description": "Update person resource by id",
                 "consumes": [

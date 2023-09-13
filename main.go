@@ -43,12 +43,12 @@ func main() {
 	docs.SwaggerInfo.Host = appUrl
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
-	router.GET("/api", controllers.HelloWorld)
-	router.POST("/api/person", controllers.StorePerson)
-	router.GET("/api/person", controllers.IndexPerson)
-	router.GET("/api/person/:id", controllers.ShowPerson)
-	router.PATCH("/api/person/:id", controllers.UpdatePerson)
-	router.DELETE("/api/person/:id", controllers.DeletePerson)
+
+	router.POST("/api", controllers.StorePerson)
+	router.GET("/api", controllers.IndexPerson)
+	router.GET("/api/:user_id", controllers.ShowPerson)
+	router.PATCH("/api/:user_id", controllers.UpdatePerson)
+	router.DELETE("/api/:user_id", controllers.DeletePerson)
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	if appEnv == "local" {
 		err := router.Run(appUrl) // listen and serve on localhost:3000

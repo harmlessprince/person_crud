@@ -7,6 +7,7 @@ import (
 	"github.com/projects/person-crud/models"
 	"github.com/projects/person-crud/utils"
 	"gorm.io/gorm"
+	"log"
 	"time"
 )
 
@@ -42,7 +43,7 @@ type FilterPersonQueryParams struct {
 // @Param data body StorePersonBody true "Person object to create"
 // @Success 200 {object} utils.JSONSuccessResult{data=PersonDto,message}
 // @Failure 422 {array} utils.ValidationError
-// @Router /person [post]
+// @Router / [post]
 func StorePerson(context *gin.Context) {
 	// Get data of request body
 	var body StorePersonBody
@@ -74,7 +75,7 @@ func StorePerson(context *gin.Context) {
 // @Param name query string false "Name to filter person by"
 // @Success 200 {object} utils.JSONSuccessResult{data=[]PersonDto,message}
 // @Failure 500 {object} utils.JSONErrorResult{message}
-// @Router /person [get]
+// @Router / [get]
 func IndexPerson(context *gin.Context) {
 
 	var queryParams FilterPersonQueryParams
@@ -105,13 +106,13 @@ func IndexPerson(context *gin.Context) {
 // @Param id path string true "person ID"
 // @Success 200 {object} utils.JSONSuccessResult{data=PersonDto,message}
 // @Failure 404 {object} utils.JSONErrorResult{message}
-// @Router /person/{id} [get]
+// @Router /{user_id} [get]
 func ShowPerson(context *gin.Context) {
 
 	//get ID from url
-	id := context.Param("id")
+	id := context.Param("user_id")
 
-	person, err := getPersonById(id)
+	person, err := getPersonByIdOrName(id)
 	if err == true {
 		utils.SendNotFoundErrorResponse(context, "Person could not be found")
 		return
@@ -120,12 +121,13 @@ func ShowPerson(context *gin.Context) {
 	utils.SendSuccessResponse(context, "Person retrieved", person)
 }
 
-func getPersonById(id string) (models.Person, bool) {
+func getPersonByIdOrName(idOrName string) (models.Person, bool) {
 
 	//get ID from url
 	var person models.Person
 
-	result := initializers.DB.First(&person, id)
+	result := initializers.DB.Where("id = ? OR name = ?", idOrName, idOrName).First(&person)
+	log.Println(result)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return person, true
 	}
@@ -145,12 +147,12 @@ func getPersonById(id string) (models.Person, bool) {
 // @Success 200 {object} utils.JSONSuccessResult{data=PersonDto,message}
 // @Failure 404 {object} utils.JSONErrorResult{message}
 // @Failure 422 {array} utils.ValidationError
-// @Router /person/{id} [get]
+// @Router /{user_id} [get]
 func UpdatePerson(context *gin.Context) {
 	var body UpdatePersonBody
 	//get ID from url
-	id := context.Param("id")
-	person, err := getPersonById(id)
+	id := context.Param("user_id")
+	person, err := getPersonByIdOrName(id)
 	if err == true {
 		utils.SendNotFoundErrorResponse(context, "Person could not be found")
 		return
@@ -186,13 +188,13 @@ func UpdatePerson(context *gin.Context) {
 // @Param id path string true "person ID"
 // @Success 200 {object}  utils.JSONSuccessResult{data,message}
 // @Failure 404 {object} utils.JSONErrorResult{message}
-// @Router /person/{id} [delete]
+// @Router /{user_id} [delete]
 func DeletePerson(context *gin.Context) {
 
 	//get ID from url
-	id := context.Param("id")
+	id := context.Param("user_id")
 
-	person, err := getPersonById(id)
+	person, err := getPersonByIdOrName(id)
 	if err == true {
 		utils.SendNotFoundErrorResponse(context, "Person could not be found")
 		return

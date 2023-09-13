@@ -2,6 +2,7 @@ package initializers
 
 import (
 	"fmt"
+	"github.com/projects/person-crud/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -22,6 +23,7 @@ func InitializeDatabaseConnection() {
 	database := os.Getenv("DB_DATABASE")
 	username := os.Getenv("DB_USERNAME")
 	password := os.Getenv("DB_PASSWORD")
+	ssl_mode := os.Getenv("DB_SSL_MODE")
 	var dsn string
 	if driver == "mysql" {
 		dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, port, database)
@@ -30,17 +32,36 @@ func InitializeDatabaseConnection() {
 
 	if driver == "postgres" {
 		dsn = fmt.Sprintf(
-			"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-			host, username, password, database, port,
+			"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+			host, username, password, database, port, ssl_mode,
 		)
 		DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	}
 	if driver == "sqlite" {
 		DB, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	}
-
 	if err != nil {
 		panic("Failed to connect to database")
 	}
 	log.Println("Database connection successful")
+
+}
+
+func MigrateUp() {
+	// Migrate the schema
+	err := DB.AutoMigrate(&models.Person{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Migration run complete")
+}
+
+func MigrateFresh() {
+	// Migrate the schema
+	err := DB.Migrator().DropTable(&models.Person{})
+	if err != nil {
+		return
+	}
+	MigrateUp()
+	log.Println("Migration run complete")
 }

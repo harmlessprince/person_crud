@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -47,4 +48,18 @@ func SendValidationErrors(c *gin.Context, errors []*ValidationError) {
 		"success": false,
 		"errors":  errors,
 	})
+}
+
+func (r *JSONErrorResult) ParseErrorResponseBody(body []byte) error {
+	if err := json.Unmarshal(body, r); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *JSONSuccessResult) ParseSuccessResponseBody(body []byte) error {
+	if err := json.Unmarshal(body, r); err != nil {
+		return err
+	}
+	return nil
 }

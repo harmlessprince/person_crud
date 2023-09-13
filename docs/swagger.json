@@ -16,7 +16,7 @@
     "host": "localhost:3000",
     "basePath": "/api",
     "paths": {
-        "/person": {
+        "/": {
             "get": {
                 "description": "get list of all person resource",
                 "produces": [
@@ -30,7 +30,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Name to filter users by",
+                        "description": "Name to filter person by",
                         "name": "name",
                         "in": "query"
                     }
@@ -120,7 +120,7 @@
                 }
             }
         },
-        "/person/{id}": {
+        "/{user_id}": {
             "get": {
                 "description": "Update person resource by id",
                 "consumes": [

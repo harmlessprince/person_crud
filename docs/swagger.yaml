@@ -71,12 +71,12 @@ info:
   title: Swagger Person Crud API
   version: "1.0"
 paths:
-  /person:
+  /:
     get:
       description: get list of all person resource
       operationId: index-person
       parameters:
-      - description: Name to filter users by
+      - description: Name to filter person by
         in: query
         name: name
         type: string
@@ -134,7 +134,7 @@ paths:
       summary: Store User
       tags:
       - Person CRUD
-  /person/{id}:
+  /{user_id}:
     delete:
       description: Delete Person resource by id
       operationId: delete-person
