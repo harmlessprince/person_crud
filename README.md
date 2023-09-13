@@ -8,12 +8,12 @@ This is a mini rest api that provides  endpoint to perform crud
 1. [Technology stack](#technology-stack)
 2. [Application features](#application-features)
 4. [Application Setup](#application-setup)
-5. [Setup Enviroment Variable](#setup-enviroment-variable)
+5. [Setup Environment Variable](#setup-environment-variable)
 5. [Start Application](#start-application)
-6. [Api Enpoints](#api-endpoints)
+6. [Api Endpoints](#api-endpoints)
 7. [View UML Diagram](#uml-diagram)
-8. [View ER Diagram](er-diagram)
-9. [Run Test](run-test)
+8. [View ER Diagram](#er-diagram)
+9. [Run Test](#run-test)
 6. [Author](#author)
 7. [License](#license)
 
@@ -38,14 +38,14 @@ Make sure you have go install in your machine.
 You can confirm go is availabe by running  `go version`
 If that is sucessfull, then you have go installed, otherwise go to official documentation [Install Go](https://go.dev/doc/install)
 
-One you are sure you have install Go
+Once you are sure you have installed Go
 You need to be sure you have GOPATH setup by running `ech $GOPATH`
 If you have that, you are good otherwise visit
 For [MAC Users](https://sourabhbajaj.com/mac-setup/Go/)
 For [Windows Users](https://www.freecodecamp.org/news/setting-up-go-programming-language-on-windows-f02c8c14e2f/)
 For [Linux Users](https://itslinuxfoss.com/set-gopath-environment-variable-ubuntu/)
 
-Once the GOPATH is setup for your device
+Once the GOPATH is set up for your device
 
 ```
     //Make Application Directory
@@ -58,12 +58,12 @@ Once the GOPATH is setup for your device
     go mod download
 ```
 
-#### Setup Enviroment Variable
+#### Setup Environment Variable
 Default database is sqlite, you can use postgres, mysql.
-You can modify the database connectionn to your choice
+You can modify the database connection to your choice
 ```env
-APP_NAME=Laravel
-APP_ENV=local
+APP_NAME=Go Application
+APP_ENV=development
 APP_DEBUG=true
 APP_URL=localhost:3000
 
@@ -88,6 +88,15 @@ or
 
 ----
 #### API Endpoints
+Production BASE URL
+```
+https://taofeeq-hng-stage-two.onrender.com
+```
+
+Development BASE URL
+```
+http://localhost:3000
+```
 
 **List Person**
 ----
@@ -375,6 +384,7 @@ Delete a single person by passing either the person id or person name.
 
 ### ER Diagram
 ![](../person-crud/er_crud.png)
+
 
 ### Run Test
 
