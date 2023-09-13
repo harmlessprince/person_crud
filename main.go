@@ -44,7 +44,7 @@ func main() {
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
-	router.POST("/", controllers.HelloWorld)
+	router.GET("", controllers.HelloWorld)
 	router.POST("/api", controllers.StorePerson)
 	router.GET("/api", controllers.IndexPerson)
 	router.GET("/api/:user_id", controllers.ShowPerson)
