@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a mini rest api that provides  endpoint to perform crud
+This is a mini rest api that provides  endpoint to perform crud on person resource
 
 ## Table of Contents
 1. [Technology stack](#technology-stack)
@@ -40,10 +40,10 @@ If that is sucessfull, then you have go installed, otherwise go to official docu
 
 Once you are sure you have installed Go
 You need to be sure you have GOPATH setup by running `ech $GOPATH`
-If you have that, you are good otherwise visit
-For [MAC Users](https://sourabhbajaj.com/mac-setup/Go/)
-For [Windows Users](https://www.freecodecamp.org/news/setting-up-go-programming-language-on-windows-f02c8c14e2f/)
-For [Linux Users](https://itslinuxfoss.com/set-gopath-environment-variable-ubuntu/)
+If you have that, you are good otherwise visit <br>
+For [MAC Users](https://sourabhbajaj.com/mac-setup/Go/) <br>
+For [Windows Users](https://www.freecodecamp.org/news/setting-up-go-programming-language-on-windows-f02c8c14e2f/) <br>
+For [Linux Users](https://itslinuxfoss.com/set-gopath-environment-variable-ubuntu/)<br>
 
 Once the GOPATH is set up for your device
 
